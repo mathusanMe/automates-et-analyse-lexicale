@@ -44,14 +44,22 @@ public class Automate extends HashSet<Etat> {
 
     // Retourne le nombre de transitions dans l'automate
     int nombreTransitions() {
-	    // à écrire
-	    return 0;
+        int nbTransitions = 0;
+	    for (Etat e : this) {
+            for (char c : e.alphabet()) {
+                nbTransitions += e.succ(c).size();
+            }
+        }
+	    return nbTransitions;
     }
 
     // Retourne l'ensemble des lettres utilisées dans l'automate.
     Set<Character> alphabet() {
-        // à écrire
-	    return null;
+        Set<Character> alphabetSet = new HashSet<Character>();
+        for (Etat e : this) {
+            alphabetSet.addAll(e.alphabet());
+        }
+	    return alphabetSet;
     }
 
     // Retourne true si et seulement si l'automate est complet
@@ -62,8 +70,14 @@ public class Automate extends HashSet<Etat> {
 
     // Pour true si et seulement si l'automate est déterministe
     boolean estDeterministe() {
-	// à écrire
-	return true;
+        for (Etat e : this) {
+            for (char c : e.alphabet()) {
+                if (e.succ(c).size() > 1) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     // premier algorithme d'acceptation d'un mot

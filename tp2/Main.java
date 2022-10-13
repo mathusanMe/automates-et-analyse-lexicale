@@ -31,6 +31,12 @@ public class Main{
 
 		System.out.println(" s1 == s2 ? " + s1.equals(s2));
 		System.out.println(" s2 == s3 ? " + s2.equals(s3));
+
+		System.out.println();
+
+		System.out.println("Nombre de transitions : " + a.nombreTransitions());
+		System.out.println("Alphabet : " + a.alphabet());
+		System.out.println("Déterministe ? " + a.estDeterministe());
     }
 
     public static void testAutomate1(){
@@ -57,15 +63,41 @@ public class Main{
 
 		Automate a = new Automate(etats[0]);
 		System.out.println(a);
+
+		System.out.println("Nombre de transitions : " + a.nombreTransitions());
+		System.out.println("Alphabet : " + a.alphabet());
+		System.out.println("Déterministe ? " + a.estDeterministe());
     }
 
     public static void testAutomate2(){
-		// écrire ici le second automate de l'énoncé
+		Etat[] etats = new Etat[31];
+		int len = etats.length;
+		etats[0] = new Etat(0, false);
+		etats[0].ajouteTransition('a', etats[0]);
+		etats[0].ajouteTransition('b', etats[0]);
+
+		for (int i = 1; i < len; i++) {
+			if (i == len - 1) {
+				etats[i] = new Etat(i, true);
+			} else {
+				etats[i] = new Etat(i, false);
+			}
+			etats[i].ajouteTransition('a', etats[i]);
+			etats[i].ajouteTransition('b', etats[i]);
+			etats[i - 1].ajouteTransition('a', etats[i]);
+			etats[i - 1].ajouteTransition('b', etats[i]);
+		}
+		Automate a = new Automate(etats[0]);
+		System.out.println(a);
     }
 
     public static void main(String[] args){
-		// testAutomate0();
-		// testAutomate1();
-		testAutomate2();
+		testAutomate0();
+		System.out.println("------------------");
+
+		testAutomate1();
+		System.out.println("------------------");
+
+		// testAutomate2();
     }
 }
