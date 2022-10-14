@@ -3,6 +3,14 @@ import java.util.Set;
 
 public class Main{
 
+	public static String a30() {
+		String s = "";
+		for (int i = 0; i < 30; i++) {
+			s += "a";
+		}
+		return s;
+	}
+
     public static void testAutomate0(){
 		Etat[] etats = new Etat[3];
 		etats[0] = new Etat(0,false);
@@ -33,10 +41,6 @@ public class Main{
 		System.out.println(" s2 == s3 ? " + s2.equals(s3));
 
 		System.out.println();
-
-		System.out.println("Nombre de transitions : " + a.nombreTransitions());
-		System.out.println("Alphabet : " + a.alphabet());
-		System.out.println("Déterministe ? " + a.estDeterministe());
     }
 
     public static void testAutomate1(){
@@ -67,6 +71,7 @@ public class Main{
 		System.out.println("Nombre de transitions : " + a.nombreTransitions());
 		System.out.println("Alphabet : " + a.alphabet());
 		System.out.println("Déterministe ? " + a.estDeterministe());
+		System.out.println("Accepte mot du sujet : " + a.accepte2(a30()));					// accepte le mot a^30
     }
 
     public static void testAutomate2(){
@@ -89,15 +94,21 @@ public class Main{
 		}
 		Automate a = new Automate(etats[0]);
 		System.out.println(a);
+
+		System.out.println("Nombre de transitions : " + a.nombreTransitions());
+		System.out.println("Alphabet : " + a.alphabet());
+		System.out.println("Déterministe ? " + a.estDeterministe());
+		System.out.println("Accepte mot du sujet : " + a.accepte2(a30()));					// semble tourner à l'infini mais le soucis est que ça prend beaucoup de temps mais il terminera
+																							// due à un grand nombre de transitions et d'états
     }
 
     public static void main(String[] args){
-		testAutomate0();
+		// testAutomate0();
 		System.out.println("------------------");
 
 		testAutomate1();
 		System.out.println("------------------");
 
-		// testAutomate2();
+		testAutomate2();
     }
 }

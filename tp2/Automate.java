@@ -87,8 +87,26 @@ public class Automate extends HashSet<Etat> {
 
     // algorithme plus efficace
     boolean accepte2(String mot) {
-        // écrire ici l'algorithme plus efficace
-        return true;
+        Set<Etat> S = new HashSet<Etat>();
+        S.add(init);
+        for (int i = 0; i < mot.length(); i++) {
+            Set<Etat> tmp = new HashSet<Etat>();
+            char c = mot.charAt(i);
+            for (Etat e : S) {
+                Set<Etat> succTmp = e.succ(c);
+                if (succTmp != null) {
+                    tmp.addAll(succTmp);
+                }
+                
+            }
+            S = tmp;
+        }
+        for (Etat e : S) {
+            if (e.estAcceptant()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     // Pour enlever les états co-accessibles

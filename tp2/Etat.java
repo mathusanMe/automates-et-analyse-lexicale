@@ -66,6 +66,7 @@ public class Etat {
 
     // premier algorithme d'acceptation d'un mot
     boolean accepte(String mot) {
+		System.out.println(mot);
 		// si on a fini de lire
 		if (mot.length() == 0)
 			// c'est accepté si état acceptant
