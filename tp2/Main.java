@@ -70,7 +70,7 @@ public class Main{
 
 		System.out.println("Nombre de transitions : " + a.nombreTransitions());
 		System.out.println("Alphabet : " + a.alphabet());
-		System.out.println("Déterministe ? " + a.estDeterministe());
+		System.out.println("Déterministe? " + a.estDeterministe());
 		System.out.println("Accepte mot du sujet : " + a.accepte2(a30()));					// accepte le mot a^30
     }
 
@@ -97,18 +97,39 @@ public class Main{
 
 		System.out.println("Nombre de transitions : " + a.nombreTransitions());
 		System.out.println("Alphabet : " + a.alphabet());
-		System.out.println("Déterministe ? " + a.estDeterministe());
+		System.out.println("Déterministe? " + a.estDeterministe());
 		System.out.println("Accepte mot du sujet : " + a.accepte2(a30()));					// semble tourner à l'infini mais le soucis est que ça prend beaucoup de temps mais il terminera
 																							// due à un grand nombre de transitions et d'états
     }
 
+	public static void testAutomate3(){
+		Etat[] etats = new Etat[3];
+		etats[0] = new Etat(0, false);
+		etats[1] = new Etat(1, true);
+		etats[2] = new Etat(2, false);
+		etats[0].ajouteTransition('a', etats[1]);
+		etats[0].ajouteTransition('b', etats[2]);
+
+		Automate a = new Automate(etats[0]);
+		System.out.println(a);
+
+		System.out.println("Nombre de transitions : " + a.nombreTransitions());
+		System.out.println("Alphabet : " + a.alphabet());
+		System.out.println("Déterministe? " + a.estDeterministe());
+		a.enleverEtatsCoAccessible();
+		System.out.println(a);
+    }
+
     public static void main(String[] args){
 		// testAutomate0();
-		System.out.println("------------------");
+		// System.out.println("------------------");
 
-		testAutomate1();
-		System.out.println("------------------");
+		// testAutomate1();
+		// System.out.println("------------------");
 
-		testAutomate2();
+		// testAutomate2();
+		// System.out.println("------------------");
+
+		testAutomate3();
     }
 }

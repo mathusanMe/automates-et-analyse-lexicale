@@ -19,6 +19,10 @@ public class Etat {
 		return id;
     }
 
+	public void removeTransition(char c, Etat e) {
+		transitions.get(c).remove(e);
+	}
+
     public boolean estAcceptant() {
 		return etatAcc;
     }

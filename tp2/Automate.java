@@ -109,9 +109,40 @@ public class Automate extends HashSet<Etat> {
         return false;
     }
 
+    boolean enleverEtatsCoAccessible(Etat e, Set<Etat> visite) {
+        boolean boo = false;
+        for (char c : e.alphabet()) {
+            Set<Etat> tmp = e.succ(c);
+            for (Etat ne : tmp) {
+                if (!visite.contains(ne)) {
+                    if (ne.estAcceptant()) {
+                        boo = boo || true;
+                    }
+                    else {
+                        visite.add(ne);
+                        if (!enleverEtatsCoAccessible(ne, visite)) {
+                            this.remove(ne);
+                            e.removeTransition(c, ne);
+                        } else {
+                            return true;
+                        }
+                    }
+                    // visite.remove(ne);           pas necessaire car l'omission permet d'ameliorer la complexite 
+                }
+            }
+        }
+        return boo;
+    }
+
     // Pour enlever les états co-accessibles
     void enleverEtatsCoAccessible() {
-        // à écrire
+        if (init == null) {
+            return;
+        }
+        if (!enleverEtatsCoAccessible(init, new HashSet<Etat>())) {
+            init = null;
+            return;
+        }
     }
 
     // Déterminisation
